@@ -2,10 +2,10 @@ package me.zhengjie.rest;
 
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.domain.Banner;
-import me.zhengjie.service.BannerService;
-import me.zhengjie.service.dto.BannerDTO;
-import me.zhengjie.service.query.BannerQueryService;
+import me.zhengjie.domain.Ad;
+import me.zhengjie.service.AdService;
+import me.zhengjie.service.dto.AdDTO;
+import me.zhengjie.service.query.AdQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,49 +20,49 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @RequestMapping("api")
-public class BannerController {
+public class AdController {
 
     @Autowired
-    private BannerService bannerService;
+    private AdService adService;
 
     @Autowired
-    private BannerQueryService bannerQueryService;
+    private AdQueryService adQueryService;
 
-    private static final String ENTITY_NAME = "banner";
+    private static final String ENTITY_NAME = "ad";
 
-    @Log("查询Banner")
-    @GetMapping(value = "/banner")
+    @Log("查询Ad")
+    @GetMapping(value = "/ad")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity getBanners(BannerDTO resources, Pageable pageable){
-        return new ResponseEntity(bannerQueryService.queryAll(resources,pageable),HttpStatus.OK);
+    public ResponseEntity getAds(AdDTO resources, Pageable pageable){
+        return new ResponseEntity(adQueryService.queryAll(resources,pageable),HttpStatus.OK);
     }
 
-    @Log("新增Banner")
-    @PostMapping(value = "/banner")
+    @Log("新增Ad")
+    @PostMapping(value = "/ad")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity create(@Validated @RequestBody Banner resources){
+    public ResponseEntity create(@Validated @RequestBody Ad resources){
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
-        return new ResponseEntity(bannerService.create(resources),HttpStatus.CREATED);
+        return new ResponseEntity(adService.create(resources),HttpStatus.CREATED);
     }
 
-    @Log("修改Banner")
-    @PutMapping(value = "/banner")
+    @Log("修改Ad")
+    @PutMapping(value = "/ad")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity update(@Validated @RequestBody Banner resources){
+    public ResponseEntity update(@Validated @RequestBody Ad resources){
         if (resources.getId() == null) {
             throw new BadRequestException(ENTITY_NAME +" ID Can not be empty");
         }
-        bannerService.update(resources);
+        adService.update(resources);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Log("删除Banner")
-    @DeleteMapping(value = "/banner/{id}")
+    @Log("删除Ad")
+    @DeleteMapping(value = "/ad/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity delete(@PathVariable Long id){
-        bannerService.delete(id);
+        adService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

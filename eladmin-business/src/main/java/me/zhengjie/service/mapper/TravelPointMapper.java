@@ -1,8 +1,8 @@
 package me.zhengjie.service.mapper;
 
 import me.zhengjie.mapper.EntityMapper;
-import me.zhengjie.domain.Banner;
-import me.zhengjie.service.dto.BannerDTO;
+import me.zhengjie.domain.TravelPoint;
+import me.zhengjie.service.dto.TravelPointDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -11,6 +11,6 @@ import org.mapstruct.ReportingPolicy;
 * @date 2019-04-10
 */
 @Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface BannerMapper extends EntityMapper<BannerDTO, Banner> {
+public interface TravelPointMapper extends EntityMapper<TravelPointDTO, TravelPoint> {
 
 }

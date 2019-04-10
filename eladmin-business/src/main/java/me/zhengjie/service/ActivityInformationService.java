@@ -1,7 +1,7 @@
 package me.zhengjie.service;
 
-import me.zhengjie.domain.Banner;
-import me.zhengjie.service.dto.BannerDTO;
+import me.zhengjie.domain.ActivityInformation;
+import me.zhengjie.service.dto.ActivityInformationDTO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -10,8 +10,8 @@ import org.springframework.cache.annotation.Cacheable;
 * @author wbq
 * @date 2019-04-10
 */
-@CacheConfig(cacheNames = "banner")
-public interface BannerService {
+@CacheConfig(cacheNames = "activityInformation")
+public interface ActivityInformationService {
 
     /**
      * findById
@@ -19,7 +19,7 @@ public interface BannerService {
      * @return
      */
     @Cacheable(key = "#p0")
-    BannerDTO findById(Long id);
+    ActivityInformationDTO findById(Long id);
 
     /**
      * create
@@ -27,14 +27,14 @@ public interface BannerService {
      * @return
      */
     @CacheEvict(allEntries = true)
-    BannerDTO create(Banner resources);
+    ActivityInformationDTO create(ActivityInformation resources);
 
     /**
      * update
      * @param resources
      */
     @CacheEvict(allEntries = true)
-    void update(Banner resources);
+    void update(ActivityInformation resources);
 
     /**
      * delete

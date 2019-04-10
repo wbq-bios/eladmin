@@ -1,10 +1,10 @@
 package me.zhengjie.service.query;
 
 import me.zhengjie.utils.PageUtil;
-import me.zhengjie.domain.Banner;
-import me.zhengjie.service.dto.BannerDTO;
-import me.zhengjie.repository.BannerRepository;
-import me.zhengjie.service.mapper.BannerMapper;
+import me.zhengjie.domain.BannerMenu;
+import me.zhengjie.service.dto.BannerMenuDTO;
+import me.zhengjie.repository.BannerMenuRepository;
+import me.zhengjie.service.mapper.BannerMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,58 +27,46 @@ import java.util.List;
  * @date 2018-12-03
  */
 @Service
-@CacheConfig(cacheNames = "banner")
+@CacheConfig(cacheNames = "bannerMenu")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class BannerQueryService {
+public class BannerMenuQueryService {
 
     @Autowired
-    private BannerRepository bannerRepository;
+    private BannerMenuRepository bannerMenuRepository;
 
     @Autowired
-    private BannerMapper bannerMapper;
+    private BannerMenuMapper bannerMenuMapper;
 
     /**
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(BannerDTO banner, Pageable pageable){
-        Page<Banner> page = bannerRepository.findAll(new Spec(banner),pageable);
-        return PageUtil.toPage(page.map(bannerMapper::toDto));
+    public Object queryAll(BannerMenuDTO bannerMenu, Pageable pageable){
+        Page<BannerMenu> page = bannerMenuRepository.findAll(new Spec(bannerMenu),pageable);
+        return PageUtil.toPage(page.map(bannerMenuMapper::toDto));
     }
 
     /**
     * 不分页
     */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(BannerDTO banner){
-        return bannerMapper.toDto(bannerRepository.findAll(new Spec(banner)));
+    public Object queryAll(BannerMenuDTO bannerMenu){
+        return bannerMenuMapper.toDto(bannerMenuRepository.findAll(new Spec(bannerMenu)));
     }
 
-    class Spec implements Specification<Banner> {
+    class Spec implements Specification<BannerMenu> {
 
-        private BannerDTO banner;
+        private BannerMenuDTO bannerMenu;
 
-        public Spec(BannerDTO banner){
-            this.banner = banner;
+        public Spec(BannerMenuDTO bannerMenu){
+            this.bannerMenu = bannerMenu;
         }
 
         @Override
-        public Predicate toPredicate(Root<Banner> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+        public Predicate toPredicate(Root<BannerMenu> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-                if(!ObjectUtils.isEmpty(banner.getId())){
-                    /**
-                    * 精确
-                    */
-                    list.add(cb.equal(root.get("id").as(Long.class),banner.getId()));
-                }
-                if(!ObjectUtils.isEmpty(banner.getName())){
-                    /**
-                    * 模糊
-                    */
-                    list.add(cb.like(root.get("name").as(String.class),"%"+banner.getName()+"%"));
-                }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));
         }

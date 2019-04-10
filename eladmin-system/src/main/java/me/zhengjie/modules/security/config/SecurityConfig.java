@@ -111,7 +111,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").anonymous()
 
                 // 页面展示 首页展示用这个接口
-                .antMatchers("/show/**").anonymous()
+                .antMatchers("/api/show/**").permitAll()
 
                 // 所有请求都需要认证
                 .anyRequest().authenticated();

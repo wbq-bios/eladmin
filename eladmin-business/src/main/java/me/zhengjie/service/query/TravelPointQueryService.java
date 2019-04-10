@@ -1,10 +1,10 @@
 package me.zhengjie.service.query;
 
 import me.zhengjie.utils.PageUtil;
-import me.zhengjie.domain.Banner;
-import me.zhengjie.service.dto.BannerDTO;
-import me.zhengjie.repository.BannerRepository;
-import me.zhengjie.service.mapper.BannerMapper;
+import me.zhengjie.domain.TravelPoint;
+import me.zhengjie.service.dto.TravelPointDTO;
+import me.zhengjie.repository.TravelPointRepository;
+import me.zhengjie.service.mapper.TravelPointMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,57 +27,57 @@ import java.util.List;
  * @date 2018-12-03
  */
 @Service
-@CacheConfig(cacheNames = "banner")
+@CacheConfig(cacheNames = "travelPoint")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class BannerQueryService {
+public class TravelPointQueryService {
 
     @Autowired
-    private BannerRepository bannerRepository;
+    private TravelPointRepository travelPointRepository;
 
     @Autowired
-    private BannerMapper bannerMapper;
+    private TravelPointMapper travelPointMapper;
 
     /**
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(BannerDTO banner, Pageable pageable){
-        Page<Banner> page = bannerRepository.findAll(new Spec(banner),pageable);
-        return PageUtil.toPage(page.map(bannerMapper::toDto));
+    public Object queryAll(TravelPointDTO travelPoint, Pageable pageable){
+        Page<TravelPoint> page = travelPointRepository.findAll(new Spec(travelPoint),pageable);
+        return PageUtil.toPage(page.map(travelPointMapper::toDto));
     }
 
     /**
     * 不分页
     */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(BannerDTO banner){
-        return bannerMapper.toDto(bannerRepository.findAll(new Spec(banner)));
+    public Object queryAll(TravelPointDTO travelPoint){
+        return travelPointMapper.toDto(travelPointRepository.findAll(new Spec(travelPoint)));
     }
 
-    class Spec implements Specification<Banner> {
+    class Spec implements Specification<TravelPoint> {
 
-        private BannerDTO banner;
+        private TravelPointDTO travelPoint;
 
-        public Spec(BannerDTO banner){
-            this.banner = banner;
+        public Spec(TravelPointDTO travelPoint){
+            this.travelPoint = travelPoint;
         }
 
         @Override
-        public Predicate toPredicate(Root<Banner> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+        public Predicate toPredicate(Root<TravelPoint> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-                if(!ObjectUtils.isEmpty(banner.getId())){
+                if(!ObjectUtils.isEmpty(travelPoint.getId())){
                     /**
                     * 精确
                     */
-                    list.add(cb.equal(root.get("id").as(Long.class),banner.getId()));
+                    list.add(cb.equal(root.get("id").as(Long.class),travelPoint.getId()));
                 }
-                if(!ObjectUtils.isEmpty(banner.getName())){
+                if(!ObjectUtils.isEmpty(travelPoint.getName())){
                     /**
                     * 模糊
                     */
-                    list.add(cb.like(root.get("name").as(String.class),"%"+banner.getName()+"%"));
+                    list.add(cb.like(root.get("name").as(String.class),"%"+travelPoint.getName()+"%"));
                 }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));

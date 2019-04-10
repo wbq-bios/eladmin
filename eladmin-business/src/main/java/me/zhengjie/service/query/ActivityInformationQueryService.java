@@ -1,10 +1,10 @@
 package me.zhengjie.service.query;
 
 import me.zhengjie.utils.PageUtil;
-import me.zhengjie.domain.Banner;
-import me.zhengjie.service.dto.BannerDTO;
-import me.zhengjie.repository.BannerRepository;
-import me.zhengjie.service.mapper.BannerMapper;
+import me.zhengjie.domain.ActivityInformation;
+import me.zhengjie.service.dto.ActivityInformationDTO;
+import me.zhengjie.repository.ActivityInformationRepository;
+import me.zhengjie.service.mapper.ActivityInformationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -27,58 +27,46 @@ import java.util.List;
  * @date 2018-12-03
  */
 @Service
-@CacheConfig(cacheNames = "banner")
+@CacheConfig(cacheNames = "activityInformation")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class BannerQueryService {
+public class ActivityInformationQueryService {
 
     @Autowired
-    private BannerRepository bannerRepository;
+    private ActivityInformationRepository activityInformationRepository;
 
     @Autowired
-    private BannerMapper bannerMapper;
+    private ActivityInformationMapper activityInformationMapper;
 
     /**
      * 分页
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(BannerDTO banner, Pageable pageable){
-        Page<Banner> page = bannerRepository.findAll(new Spec(banner),pageable);
-        return PageUtil.toPage(page.map(bannerMapper::toDto));
+    public Object queryAll(ActivityInformationDTO activityInformation, Pageable pageable){
+        Page<ActivityInformation> page = activityInformationRepository.findAll(new Spec(activityInformation),pageable);
+        return PageUtil.toPage(page.map(activityInformationMapper::toDto));
     }
 
     /**
     * 不分页
     */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(BannerDTO banner){
-        return bannerMapper.toDto(bannerRepository.findAll(new Spec(banner)));
+    public Object queryAll(ActivityInformationDTO activityInformation){
+        return activityInformationMapper.toDto(activityInformationRepository.findAll(new Spec(activityInformation)));
     }
 
-    class Spec implements Specification<Banner> {
+    class Spec implements Specification<ActivityInformation> {
 
-        private BannerDTO banner;
+        private ActivityInformationDTO activityInformation;
 
-        public Spec(BannerDTO banner){
-            this.banner = banner;
+        public Spec(ActivityInformationDTO activityInformation){
+            this.activityInformation = activityInformation;
         }
 
         @Override
-        public Predicate toPredicate(Root<Banner> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+        public Predicate toPredicate(Root<ActivityInformation> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
-                if(!ObjectUtils.isEmpty(banner.getId())){
-                    /**
-                    * 精确
-                    */
-                    list.add(cb.equal(root.get("id").as(Long.class),banner.getId()));
-                }
-                if(!ObjectUtils.isEmpty(banner.getName())){
-                    /**
-                    * 模糊
-                    */
-                    list.add(cb.like(root.get("name").as(String.class),"%"+banner.getName()+"%"));
-                }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));
         }

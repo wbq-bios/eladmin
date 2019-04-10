@@ -70,8 +70,8 @@ public class LogServiceImpl implements LogService {
         log.setRequestIp(StringUtils.getIP(request));
 
         if(!LOGINPATH.equals(signature.getName())){
-            UserDetails userDetails = SecurityContextHolder.getUserDetails();
-            username = userDetails.getUsername();
+            //UserDetails userDetails = SecurityContextHolder.getUserDetails();
+            username = "123";//userDetails.getUsername();
         } else {
             try {
                 JSONObject jsonObject = new JSONObject(argValues[0]);

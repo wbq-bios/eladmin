@@ -8,14 +8,14 @@ import java.io.Serializable;
 * @date 2019-04-10
 */
 @Data
-public class BannerDTO implements Serializable {
+public class TravelPointDTO implements Serializable {
 
     private Long id;
 
     /**
-     * 图片地址
+     * 景点名称
      */
-    private String imgAddress;
+    private String name;
 
     /**
      * 排序
@@ -23,17 +23,12 @@ public class BannerDTO implements Serializable {
     private Integer sortNum;
 
     /**
-     * 图片描述
+     * 图片url
+     */
+    private String imgUrl;
+
+    /**
+     * 描述
      */
     private String description;
-
-    /**
-     * 是否在使用
-     */
-    private Integer isuse;
-
-    /**
-     * 图片别名
-     */
-    private String name;
 }
