@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,5 +57,10 @@ public class AdServiceImpl implements AdService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         adRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Ad> showAd() {
+        return adRepository.showAd();
     }
 }

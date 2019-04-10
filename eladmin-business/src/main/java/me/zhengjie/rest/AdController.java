@@ -65,4 +65,10 @@ public class AdController {
         adService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @Log("展示 获取广告")
+    @GetMapping("/show/getAd")
+    public  ResponseEntity showAd(){
+        return new ResponseEntity(adService.showAd(),HttpStatus.OK);
+    }
 }

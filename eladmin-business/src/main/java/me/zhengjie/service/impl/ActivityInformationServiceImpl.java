@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,5 +57,10 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         activityInformationRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ActivityInformation> showActivity() {
+        return activityInformationRepository.showActivity();
     }
 }

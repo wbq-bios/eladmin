@@ -24,7 +24,7 @@ public class ActivityInformationDTO implements Serializable {
     private String url;
 
     /**
-     * 所属分类，1：热门活动，2，2景区新闻，3：旅游新闻
+     * 所属分类1：热门活动，2：景区新闻3：旅游新闻
      */
     private Long category;
 
@@ -52,4 +52,9 @@ public class ActivityInformationDTO implements Serializable {
      * 在首页上的简介
      */
     private String description;
+
+    /**
+     * 主页上显示
+     */
+    private Integer isShow;
 }

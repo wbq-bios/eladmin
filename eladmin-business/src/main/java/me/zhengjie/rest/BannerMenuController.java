@@ -65,4 +65,9 @@ public class BannerMenuController {
         bannerMenuService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+    @Log("展示：获取轮播图处的菜单")
+    @GetMapping("/show/getBannerMenu")
+    public ResponseEntity showBannerMenu(){
+        return new ResponseEntity(bannerMenuService.showBannerMenu(),HttpStatus.OK);
+    }
 }

@@ -65,4 +65,10 @@ public class ActivityInformationController {
         activityInformationService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @Log("展示：获取活动信息")
+    @GetMapping("/show/getActivity")
+    public ResponseEntity showActivity(){
+        return new ResponseEntity(activityInformationService.showActivity(),HttpStatus.OK);
+    }
 }

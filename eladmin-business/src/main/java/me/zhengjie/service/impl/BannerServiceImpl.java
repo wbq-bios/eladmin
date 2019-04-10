@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,5 +57,11 @@ public class BannerServiceImpl implements BannerService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         bannerRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<Banner> showBanner() {
+        return bannerRepository.showBanner();
     }
 }

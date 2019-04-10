@@ -32,7 +32,7 @@ public class ActivityInformation implements Serializable {
     private String url;
 
     /**
-     * 所属分类，1：热门活动，2，2景区新闻，3：旅游新闻
+     * 所属分类1：热门活动，2：景区新闻3：旅游新闻
      */
     @Column(name = "category",nullable = false)
     private Long category;
@@ -66,4 +66,10 @@ public class ActivityInformation implements Serializable {
      */
     @Column(name = "description",nullable = false)
     private String description;
+
+    /**
+     * 主页上显示
+     */
+    @Column(name = "is_show",nullable = false)
+    private Integer isShow;
 }

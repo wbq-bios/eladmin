@@ -65,4 +65,10 @@ public class TravelPointController {
         travelPointService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @Log("展示：获取旅游景点")
+    @GetMapping("/show/getTravelPoint")
+    public  ResponseEntity showTravelPoint(){
+        return new ResponseEntity(travelPointService.showTravelPoint(),HttpStatus.OK);
+    }
 }

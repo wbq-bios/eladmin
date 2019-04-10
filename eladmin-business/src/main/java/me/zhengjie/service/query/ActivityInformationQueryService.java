@@ -67,6 +67,18 @@ public class ActivityInformationQueryService {
 
             List<Predicate> list = new ArrayList<Predicate>();
 
+                if(!ObjectUtils.isEmpty(activityInformation.getId())){
+                    /**
+                    * 精确
+                    */
+                    list.add(cb.equal(root.get("id").as(Long.class),activityInformation.getId()));
+                }
+                if(!ObjectUtils.isEmpty(activityInformation.getTitle())){
+                    /**
+                    * 模糊
+                    */
+                    list.add(cb.like(root.get("title").as(String.class),"%"+activityInformation.getTitle()+"%"));
+                }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));
         }

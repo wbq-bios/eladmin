@@ -65,4 +65,10 @@ public class BannerController {
         bannerService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @Log("展示：获取轮播图")
+    @GetMapping(value = "/show/getBanner")
+    public ResponseEntity getShowBanner(){
+        return new ResponseEntity(bannerService.showBanner(),HttpStatus.OK);
+    }
 }
