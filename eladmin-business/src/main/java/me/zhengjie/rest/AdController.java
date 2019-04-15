@@ -1,5 +1,7 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.domain.Ad;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @RequestMapping("api")
+@Api(description = "广告的api")
 public class AdController {
 
     @Autowired
@@ -33,6 +36,8 @@ public class AdController {
     @Log("查询Ad")
     @GetMapping(value = "/ad")
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApiOperation(value = "获取所有的数据库中的广告的列")
+
     public ResponseEntity getAds(AdDTO resources, Pageable pageable){
         return new ResponseEntity(adQueryService.queryAll(resources,pageable),HttpStatus.OK);
     }
@@ -40,6 +45,7 @@ public class AdController {
     @Log("新增Ad")
     @PostMapping(value = "/ad")
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApiOperation(value = "创建一个新的广告")
     public ResponseEntity create(@Validated @RequestBody Ad resources){
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
@@ -50,6 +56,7 @@ public class AdController {
     @Log("修改Ad")
     @PutMapping(value = "/ad")
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApiOperation(value = "修改广告列",notes = "id不能为空")
     public ResponseEntity update(@Validated @RequestBody Ad resources){
         if (resources.getId() == null) {
             throw new BadRequestException(ENTITY_NAME +" ID Can not be empty");
@@ -59,6 +66,7 @@ public class AdController {
     }
 
     @Log("删除Ad")
+    @ApiOperation(value = "删除广告列")
     @DeleteMapping(value = "/ad/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity delete(@PathVariable Long id){
@@ -68,6 +76,7 @@ public class AdController {
 
     @Log("展示 获取广告")
     @GetMapping("/show/getAd")
+    @ApiOperation(value = "首页展示时的获取广告",notes = "有可能以后会变成多个，所以传的是list")
     public  ResponseEntity showAd(){
         return new ResponseEntity(adService.showAd(),HttpStatus.OK);
     }

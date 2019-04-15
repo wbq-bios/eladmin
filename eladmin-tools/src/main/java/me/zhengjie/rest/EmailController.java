@@ -1,5 +1,6 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.domain.EmailConfig;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("api")
+@Api(description = "邮件管理的api")
 public class EmailController {
 
     @Autowired

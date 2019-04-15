@@ -1,5 +1,7 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.domain.Banner;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @RequestMapping("api")
+@Api(description = "首页轮播图的api")
 public class BannerController {
 
     @Autowired
@@ -31,6 +34,7 @@ public class BannerController {
     private static final String ENTITY_NAME = "banner";
 
     @Log("查询Banner")
+    @ApiOperation(value = "查询所有的banner")
     @GetMapping(value = "/banner")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity getBanners(BannerDTO resources, Pageable pageable){
@@ -40,6 +44,7 @@ public class BannerController {
     @Log("新增Banner")
     @PostMapping(value = "/banner")
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApiOperation(value = "新增banner")
     public ResponseEntity create(@Validated @RequestBody Banner resources){
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
@@ -48,6 +53,7 @@ public class BannerController {
     }
 
     @Log("修改Banner")
+    @ApiOperation(value = "修改banner")
     @PutMapping(value = "/banner")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity update(@Validated @RequestBody Banner resources){
@@ -59,6 +65,7 @@ public class BannerController {
     }
 
     @Log("删除Banner")
+    @ApiOperation(value = "删除banner")
     @DeleteMapping(value = "/banner/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity delete(@PathVariable Long id){
@@ -67,6 +74,7 @@ public class BannerController {
     }
 
     @Log("展示：获取轮播图")
+    @ApiOperation(value = "首页展示中要用的banner图")
     @GetMapping(value = "/show/getBanner")
     public ResponseEntity getShowBanner(){
         return new ResponseEntity(bannerService.showBanner(),HttpStatus.OK);

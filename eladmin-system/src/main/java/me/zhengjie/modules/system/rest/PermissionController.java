@@ -1,5 +1,6 @@
 package me.zhengjie.modules.system.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.system.domain.Permission;
 import me.zhengjie.exception.BadRequestException;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "后台管理 权限管理的api")
 public class PermissionController {
 
     @Autowired

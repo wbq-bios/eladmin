@@ -1,5 +1,6 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.domain.BannerMenu;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @RequestMapping("api")
+@Api(description = "首页轮播图上的菜单api")
 public class BannerMenuController {
 
     @Autowired

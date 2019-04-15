@@ -1,5 +1,6 @@
 package me.zhengjie.modules.monitor.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.monitor.domain.vo.RedisVo;
 import me.zhengjie.modules.monitor.service.RedisService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "redis缓存的api接口")
 public class RedisController {
 
     @Autowired

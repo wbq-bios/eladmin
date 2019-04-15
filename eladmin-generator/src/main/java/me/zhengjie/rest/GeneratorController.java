@@ -1,6 +1,8 @@
 package me.zhengjie.rest;
 
 import cn.hutool.core.util.PageUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import me.zhengjie.domain.vo.ColumnInfo;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.service.GenConfigService;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "代码生成器的api")
 public class GeneratorController {
 
     @Autowired
@@ -37,6 +40,7 @@ public class GeneratorController {
      * @return
      */
     @GetMapping(value = "/generator/tables")
+    @ApiOperation(value = "查询数据库元数据 代码生成器用" )
     public ResponseEntity getTables(@RequestParam(defaultValue = "") String name,
                                    @RequestParam(defaultValue = "0")Integer page,
                                    @RequestParam(defaultValue = "10")Integer size){

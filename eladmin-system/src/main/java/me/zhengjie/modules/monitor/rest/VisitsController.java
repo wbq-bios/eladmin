@@ -1,5 +1,6 @@
 package me.zhengjie.modules.monitor.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.modules.monitor.service.VisitsService;
 import me.zhengjie.utils.RequestHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "浏览记录的api接口，就是后台管理登陆后出现在上方的那几个")
 public class VisitsController {
 
     @Autowired

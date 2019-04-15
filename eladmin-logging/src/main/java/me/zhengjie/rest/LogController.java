@@ -1,5 +1,6 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.domain.Log;
 import me.zhengjie.service.query.LogQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "服务器日志的api接口")
 public class LogController {
 
     @Autowired

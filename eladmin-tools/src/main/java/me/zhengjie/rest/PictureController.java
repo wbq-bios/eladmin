@@ -1,5 +1,6 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.domain.Picture;
 import me.zhengjie.service.PictureService;
@@ -22,6 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/api")
+@Api(description = "用户上传图片的api")
 public class PictureController {
 
     @Autowired

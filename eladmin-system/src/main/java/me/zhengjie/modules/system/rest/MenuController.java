@@ -1,5 +1,6 @@
 package me.zhengjie.modules.system.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.system.domain.Menu;
 import me.zhengjie.modules.system.domain.User;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "后台管理里 菜单栏的api")
 public class MenuController {
 
     @Autowired

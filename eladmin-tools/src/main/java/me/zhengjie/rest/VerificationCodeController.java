@@ -1,5 +1,6 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.domain.VerificationCode;
 import me.zhengjie.domain.vo.EmailVo;
 import me.zhengjie.service.EmailService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "邮件验证码的api接口")
 public class VerificationCodeController {
 
     @Autowired

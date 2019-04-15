@@ -1,5 +1,6 @@
 package me.zhengjie.rest;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.domain.QiniuConfig;
@@ -24,6 +25,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("api")
+@Api(description = "七牛云的图床api")
 public class QiniuController {
 
     @Autowired

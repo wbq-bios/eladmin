@@ -1,5 +1,6 @@
 package me.zhengjie.modules.system.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.domain.Picture;
 import me.zhengjie.domain.VerificationCode;
@@ -35,6 +36,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "后台管理中 关于用户的api")
 public class UserController {
 
     @Autowired

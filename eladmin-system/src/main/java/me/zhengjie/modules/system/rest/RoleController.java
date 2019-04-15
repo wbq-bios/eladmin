@@ -1,5 +1,6 @@
 package me.zhengjie.modules.system.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.system.domain.Role;
 import me.zhengjie.exception.BadRequestException;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "后台管理中 角色管理的api接口")
 public class RoleController {
 
     @Autowired

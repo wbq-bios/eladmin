@@ -104,6 +104,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**").anonymous()
                 .antMatchers("/webjars/**").anonymous()
                 .antMatchers("/*/api-docs").anonymous()
+                .antMatchers("/docs.html").anonymous()
+                .antMatchers("/doc.html").permitAll()
+                .antMatchers("/v2/api-docs?group=groupName").anonymous()
+                .antMatchers("/v2/api-docs-ext?group=groupName").anonymous()
+
                 // swagger end
 
                 // 接口限流测试

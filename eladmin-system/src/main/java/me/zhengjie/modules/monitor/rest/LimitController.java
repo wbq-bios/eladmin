@@ -1,5 +1,6 @@
 package me.zhengjie.modules.monitor.rest;
 
+import io.swagger.annotations.Api;
 import me.zhengjie.aop.limit.Limit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @RestController
 @RequestMapping("api")
+@Api(description = "接口限流的api  测试限流注解，下面配置说明该接口 60秒内最多只能访问 10次")
 public class LimitController {
     private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
 

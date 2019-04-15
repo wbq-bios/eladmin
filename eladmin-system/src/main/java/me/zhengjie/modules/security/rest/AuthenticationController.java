@@ -1,5 +1,6 @@
 package me.zhengjie.modules.security.rest;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.modules.security.security.AuthenticationInfo;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("auth")
+@Api(description = "根据token获取用户详细信息的api")
 public class AuthenticationController {
 
     @Value("${jwt.header}")

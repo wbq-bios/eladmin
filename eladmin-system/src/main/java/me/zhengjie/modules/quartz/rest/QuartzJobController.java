@@ -1,5 +1,6 @@
 package me.zhengjie.modules.quartz.rest;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/api")
+@Api(description = "定时任务的api接口")
 public class QuartzJobController {
 
     private static final String ENTITY_NAME = "quartzJob";
