@@ -31,7 +31,7 @@ public class JobRunner implements ApplicationRunner {
     public void run(ApplicationArguments applicationArguments){
         System.out.println("--------------------注入定时任务---------------------");
         List<QuartzJob> quartzJobs = quartzJobRepository.findByIsPauseIsFalse();
-        quartzJobs.forEach(quartzJob -> {
+        quartzJobs.forEach(quartzJob ->{
             quartzManage.addJob(quartzJob);
         });
         System.out.println("--------------------定时任务注入完成---------------------");

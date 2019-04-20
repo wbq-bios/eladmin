@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-16
 */
 @CacheConfig(cacheNames = "travelPoint")
 public interface TravelPointService {
@@ -44,10 +44,10 @@ public interface TravelPointService {
      */
     @CacheEvict(allEntries = true)
     void delete(Long id);
+
     /**
      * showTravelPoint
      * @return
      */
-    List<TravelPoint> showTravelPoint();
-
+    List<TravelPointDTO> showTravelPoint();
 }

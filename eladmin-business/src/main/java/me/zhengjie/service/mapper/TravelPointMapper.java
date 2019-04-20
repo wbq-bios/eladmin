@@ -8,7 +8,7 @@ import org.mapstruct.ReportingPolicy;
 
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-16
 */
 @Mapper(componentModel = "spring",uses = {},unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TravelPointMapper extends EntityMapper<TravelPointDTO, TravelPoint> {

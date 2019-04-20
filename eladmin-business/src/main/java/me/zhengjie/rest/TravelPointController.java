@@ -1,6 +1,5 @@
 package me.zhengjie.rest;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
@@ -18,11 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-16
 */
 @RestController
 @RequestMapping("api")
-@Api(description = "旅游景点的api")
 public class TravelPointController {
 
     @Autowired
@@ -34,7 +32,6 @@ public class TravelPointController {
     private static final String ENTITY_NAME = "travelPoint";
 
     @Log("查询TravelPoint")
-    @ApiOperation(value = "查询所有的旅游景点")
     @GetMapping(value = "/travelPoint")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity getTravelPoints(TravelPointDTO resources, Pageable pageable){
@@ -42,7 +39,6 @@ public class TravelPointController {
     }
 
     @Log("新增TravelPoint")
-    @ApiOperation(value = "新增旅游景点")
     @PostMapping(value = "/travelPoint")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity create(@Validated @RequestBody TravelPoint resources){
@@ -53,7 +49,6 @@ public class TravelPointController {
     }
 
     @Log("修改TravelPoint")
-    @ApiOperation(value = "修改")
     @PutMapping(value = "/travelPoint")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity update(@Validated @RequestBody TravelPoint resources){
@@ -65,7 +60,6 @@ public class TravelPointController {
     }
 
     @Log("删除TravelPoint")
-    @ApiOperation(value = "删除")
     @DeleteMapping(value = "/travelPoint/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity delete(@PathVariable Long id){

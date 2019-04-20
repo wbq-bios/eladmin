@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-16
 */
 public interface TravelPointRepository extends JpaRepository<TravelPoint, Long>, JpaSpecificationExecutor {
     @Query(value = "select * from travel_point",nativeQuery = true)

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-16
 */
 @Entity
 @Data
@@ -41,4 +41,16 @@ public class TravelPoint implements Serializable {
      */
     @Column(name = "description",nullable = false)
     private String description;
+
+    /**
+     * 交通方式
+     */
+    @Column(name = "transportation",nullable = false)
+    private String transportation;
+
+    /**
+     * 英文名字
+     */
+    @Column(name = "en_name",nullable = false)
+    private String enName;
 }

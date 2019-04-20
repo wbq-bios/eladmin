@@ -79,6 +79,12 @@ public class TravelPointQueryService {
                     */
                     list.add(cb.like(root.get("name").as(String.class),"%"+travelPoint.getName()+"%"));
                 }
+                if(!ObjectUtils.isEmpty(travelPoint.getEnName())){
+                    /**
+                    * 模糊
+                    */
+                    list.add(cb.like(root.get("en_name").as(String.class),"%"+travelPoint.getEnName()+"%"));
+                }
                 Predicate[] p = new Predicate[list.size()];
                 return cb.and(list.toArray(p));
         }

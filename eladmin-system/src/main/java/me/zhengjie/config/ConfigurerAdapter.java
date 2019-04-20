@@ -26,7 +26,6 @@ public class ConfigurerAdapter implements WebMvcConfigurer {
                 .allowedMethods("GET","POST","PUT","DELETE");
 
     }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/").setCachePeriod(0);
