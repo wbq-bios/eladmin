@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.Format;
@@ -22,6 +23,11 @@ import java.util.Optional;
 
 import static com.oracle.jrockit.jfr.ContentType.Timestamp;
 
+=======
+import java.util.List;
+import java.util.Optional;
+
+>>>>>>> 2e4ee3c0128b99d6c62ad2de91fa44245b310798
 /**
 * @author wbq
 * @date 2019-04-10
@@ -46,11 +52,14 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ActivityInformationDTO create(ActivityInformation resources) {
+<<<<<<< HEAD
         Timestamp tempTime = new Timestamp(System.currentTimeMillis());
         resources.setCreateTime(tempTime);
         resources.setUpdateTime(tempTime);
         resources.setUrl("http://localhost:8013/article/"+resources.getId());
         resources.setAuthor("admin");
+=======
+>>>>>>> 2e4ee3c0128b99d6c62ad2de91fa44245b310798
         return activityInformationMapper.toDto(activityInformationRepository.save(resources));
     }
 

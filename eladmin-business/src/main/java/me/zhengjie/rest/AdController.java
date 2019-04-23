@@ -50,7 +50,6 @@ public class AdController {
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
-        System.out.println("sfsdf");
         return new ResponseEntity(adService.create(resources),HttpStatus.CREATED);
     }
 

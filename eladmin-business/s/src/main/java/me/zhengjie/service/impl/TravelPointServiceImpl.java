@@ -1,10 +1,6 @@
 package me.zhengjie.service.impl;
 
-import me.zhengjie.domain.Picture;
 import me.zhengjie.domain.TravelPoint;
-import me.zhengjie.domain.TravelPoint2Images;
-import me.zhengjie.repository.PictureRepository;
-import me.zhengjie.repository.TravelPoint2ImagesRepository;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.repository.TravelPointRepository;
 import me.zhengjie.service.TravelPointService;
@@ -14,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,12 +25,6 @@ public class TravelPointServiceImpl implements TravelPointService {
 
     @Autowired
     private TravelPointMapper travelPointMapper;
-
-    @Autowired
-    private TravelPoint2ImagesRepository travelPoint2ImagesRepository;
-
-    @Autowired
-    private PictureRepository pictureRepository;
 
     @Override
     public TravelPointDTO findById(Long id) {
@@ -68,36 +55,5 @@ public class TravelPointServiceImpl implements TravelPointService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         travelPointRepository.deleteById(id);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List<TravelPointDTO> showTravelPoint() {
-        List<TravelPointDTO> res=new LinkedList<>();
-        List<TravelPoint>getData=travelPointRepository.showTravelPoint();
-        for (TravelPoint travelPoint:getData) {
-            TravelPointDTO travelPointDTO=new TravelPointDTO();
-            travelPointDTO.setId(travelPoint.getId());
-            travelPointDTO.setImgUrl(travelPoint.getImgUrl());
-<<<<<<< HEAD
-            travelPointDTO.setName(travelPoint.getName());
-=======
-            travelPointDTO.setName(travelPointDTO.getName());
->>>>>>> 2e4ee3c0128b99d6c62ad2de91fa44245b310798
-            travelPointDTO.setSortNum(travelPoint.getSortNum());
-            travelPointDTO.setDescription(travelPoint.getDescription());
-            travelPointDTO.setTransportation(travelPoint.getTransportation());
-            travelPointDTO.setEnName(travelPoint.getEnName());
-            List<TravelPoint2Images> imgs=travelPoint2ImagesRepository.getImgs(travelPoint.getId());
-            List<Picture> pictures=new LinkedList<>();
-            for (TravelPoint2Images temp:imgs) {
-                Picture picture=pictureRepository.getById(temp.getPictureId());
-                pictures.add(picture);
-            }
-            travelPointDTO.setImages(pictures);
-            res.add(travelPointDTO);
-        }
-        return res;
-
     }
 }
