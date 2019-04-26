@@ -51,7 +51,7 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
         Timestamp tempTime = new Timestamp(System.currentTimeMillis());
         resources.setCreateTime(tempTime);
         resources.setUpdateTime(tempTime);
-        resources.setUrl("http://localhost:8013/article/"+resources.getId());
+        resources.setUrl("http://localhost:8013/article/"+System.currentTimeMillis());
         resources.setAuthor("admin");
         return activityInformationMapper.toDto(activityInformationRepository.save(resources));
     }

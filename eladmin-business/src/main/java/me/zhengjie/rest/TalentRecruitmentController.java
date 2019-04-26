@@ -71,4 +71,9 @@ public class TalentRecruitmentController {
     public  ResponseEntity getTalentRecruitment(){
         return new ResponseEntity(talentRecruitmentService.getTalentRecruitment(),HttpStatus.OK);
     }
+    @Log("获取具体的人才招聘信息通过id")
+    @GetMapping(value = "/talentDetail/{id}")
+    public ResponseEntity getTalentDetail(@PathVariable Long id){
+        return new ResponseEntity(talentRecruitmentService.findById(id),HttpStatus.OK);
+    }
 }

@@ -79,4 +79,10 @@ public class ActivityInformationController {
     public ResponseEntity showActivity(){
         return new ResponseEntity(activityInformationService.showActivity(),HttpStatus.OK);
     }
+    @Log("获取具体的活动信息")
+    @GetMapping(value = "/getinformationDetail/{id}")
+    @ApiOperation(value = "通过id获取具体的活动信息")
+    public ResponseEntity getinformationDetail(@PathVariable Long id){
+        return  new ResponseEntity(activityInformationService.findById(id),HttpStatus.OK);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,8 @@ public class TalentRecruitmentServiceImpl implements TalentRecruitmentService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public TalentRecruitmentDTO create(TalentRecruitment resources) {
+        Timestamp tempTime = new Timestamp(System.currentTimeMillis());
+        resources.setUpdateTime(tempTime);
         return talentRecruitmentMapper.toDto(talentRecruitmentRepository.save(resources));
     }
 
@@ -46,7 +49,8 @@ public class TalentRecruitmentServiceImpl implements TalentRecruitmentService {
     public void update(TalentRecruitment resources) {
         Optional<TalentRecruitment> optionalTalentRecruitment = talentRecruitmentRepository.findById(resources.getId());
         ValidationUtil.isNull( optionalTalentRecruitment,"TalentRecruitment","id",resources.getId());
-
+        Timestamp tempTime = new Timestamp(System.currentTimeMillis());
+        resources.setUpdateTime(tempTime);
         TalentRecruitment talentRecruitment = optionalTalentRecruitment.get();
         // 此处需自己修改
         resources.setId(talentRecruitment.getId());

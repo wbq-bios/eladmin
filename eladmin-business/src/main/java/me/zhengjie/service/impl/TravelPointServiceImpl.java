@@ -80,7 +80,6 @@ public class TravelPointServiceImpl implements TravelPointService {
             travelPointDTO.setId(travelPoint.getId());
             travelPointDTO.setImgUrl(travelPoint.getImgUrl());
             travelPointDTO.setName(travelPoint.getName());
-            travelPointDTO.setName(travelPointDTO.getName());
             travelPointDTO.setSortNum(travelPoint.getSortNum());
             travelPointDTO.setDescription(travelPoint.getDescription());
             travelPointDTO.setTransportation(travelPoint.getTransportation());
