@@ -57,4 +57,8 @@ public class ActivityInformationDTO implements Serializable {
      * 主页上显示
      */
     private Integer isShow;
+    /**
+     * 主页imgUrl
+     */
+    private String imgUrl;
 }

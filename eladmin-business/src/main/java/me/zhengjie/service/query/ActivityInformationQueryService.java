@@ -43,6 +43,7 @@ public class ActivityInformationQueryService {
     @Cacheable(keyGenerator = "keyGenerator")
     public Object queryAll(ActivityInformationDTO activityInformation, Pageable pageable){
         Page<ActivityInformation> page = activityInformationRepository.findAll(new Spec(activityInformation),pageable);
+        System.out.println(page.toString());
         return PageUtil.toPage(page.map(activityInformationMapper::toDto));
     }
 
