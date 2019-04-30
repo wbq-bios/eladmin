@@ -65,5 +65,10 @@ public class BannerMenuServiceImpl implements BannerMenuService {
         return bannerMenuRepository.showBannerMenu();
     }
 
+    @Override
+    public void bashDel(List<Long> idList) {
+        bannerMenuRepository.bashDel(idList);
+    }
+
 
 }

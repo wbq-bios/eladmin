@@ -3,7 +3,6 @@ package me.zhengjie.rest;
 import io.swagger.annotations.ApiOperation;
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.domain.TravelPoint;
 import me.zhengjie.service.TravelPointService;
 import me.zhengjie.service.dto.TravelPointDTO;
 import me.zhengjie.service.query.TravelPointQueryService;
@@ -14,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
 * @author wbq
@@ -41,17 +42,18 @@ public class TravelPointController {
     @Log("新增TravelPoint")
     @PostMapping(value = "/travelPoint")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity create(@Validated @RequestBody TravelPoint resources){
+    public ResponseEntity create(@Validated @RequestBody TravelPointDTO resources){
         if (resources.getId() != null) {
             throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
         }
+
         return new ResponseEntity(travelPointService.create(resources),HttpStatus.CREATED);
     }
 
     @Log("修改TravelPoint")
     @PutMapping(value = "/travelPoint")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity update(@Validated @RequestBody TravelPoint resources){
+    public ResponseEntity update(@Validated @RequestBody TravelPointDTO resources){
         if (resources.getId() == null) {
             throw new BadRequestException(ENTITY_NAME +" ID Can not be empty");
         }
@@ -73,4 +75,19 @@ public class TravelPointController {
     public  ResponseEntity showTravelPoint(){
         return new ResponseEntity(travelPointService.showTravelPoint(),HttpStatus.OK);
     }
+    @Log("获取具体的旅游景点详情")
+    @GetMapping(value = "/travelPointDetail/{id}")
+    public ResponseEntity getTravelPointDetail(@PathVariable Long id){
+        TravelPointDTO dto=travelPointService.findById(id);
+        dto.setImages(travelPointService.getImages(id));
+        return new ResponseEntity(dto,HttpStatus.OK);
+    }
+    @Log("批量删除旅游景点")
+    @DeleteMapping(value = "/travelPointDetail/bashDel")
+    @ApiOperation(value = "批量删除旅游景点")
+    public ResponseEntity bashDel(@RequestBody List<Long>idList){
+        travelPointService.bashDel(idList);
+        return new  ResponseEntity(HttpStatus.OK);
+    }
+
 }

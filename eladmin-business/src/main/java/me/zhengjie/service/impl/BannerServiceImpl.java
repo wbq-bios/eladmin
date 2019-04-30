@@ -64,4 +64,11 @@ public class BannerServiceImpl implements BannerService {
     public List<Banner> showBanner() {
         return bannerRepository.showBanner();
     }
+
+    @Override
+    public void bashDel(List<Long> idList) {
+        bannerRepository.bashDel(idList);
+    }
+
+
 }

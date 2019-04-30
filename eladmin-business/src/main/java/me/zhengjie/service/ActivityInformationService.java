@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-26
 */
 @CacheConfig(cacheNames = "activityInformation")
 public interface ActivityInformationService {
@@ -50,4 +50,6 @@ public interface ActivityInformationService {
      * @return
      */
     List<ActivityInformation> showActivity();
+
+    void bashDel(List<Long> idList);
 }

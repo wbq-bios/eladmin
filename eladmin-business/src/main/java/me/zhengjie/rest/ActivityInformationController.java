@@ -16,9 +16,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-26
 */
 @RestController
 @RequestMapping("api")
@@ -35,7 +37,7 @@ public class ActivityInformationController {
 
     @Log("查询ActivityInformation")
     @GetMapping(value = "/activityInformation")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','ACTIVITY_ALL','ACTIVITY_SELECT')")
     @ApiOperation(value = "查询ActivityInformation", notes = "会查询数据库中活动信息表的所有列")
     public ResponseEntity getActivityInformations(ActivityInformationDTO resources, Pageable pageable){
         return new ResponseEntity(activityInformationQueryService.queryAll(resources,pageable),HttpStatus.OK);
@@ -43,7 +45,7 @@ public class ActivityInformationController {
 
     @Log("新增ActivityInformation")
     @PostMapping(value = "/activityInformation")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','ACTIVITY_ALL','ACTIVITY_ADD')")
     @ApiOperation(value = "新增ActivityInformation")
     public ResponseEntity create(@Validated @RequestBody ActivityInformation resources){
         if (resources.getId() != null) {
@@ -54,7 +56,7 @@ public class ActivityInformationController {
 
     @Log("修改ActivityInformation")
     @PutMapping(value = "/activityInformation")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','ACTIVITY_ALL','ACTIVITY_UPDATE')")
     @ApiOperation(value = "修改ActivityInformation",notes = "id不能为空")
     public ResponseEntity update(@Validated @RequestBody ActivityInformation resources){
         if (resources.getId() == null) {
@@ -66,7 +68,7 @@ public class ActivityInformationController {
 
     @Log("删除ActivityInformation")
     @DeleteMapping(value = "/activityInformation/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','ACTIVITY_ALL','ACTIVITY_DEL')")
     @ApiOperation(value = "删除ActivityInformation具体的信息")
     public ResponseEntity delete(@PathVariable Long id){
         activityInformationService.delete(id);
@@ -82,7 +84,16 @@ public class ActivityInformationController {
     @Log("获取具体的活动信息")
     @GetMapping(value = "/getinformationDetail/{id}")
     @ApiOperation(value = "通过id获取具体的活动信息")
+    @PreAuthorize("hasAnyRole('ADMIN','ACTIVITY_ALL','ACTIVITY_SEL_BY_ID')")
     public ResponseEntity getinformationDetail(@PathVariable Long id){
         return  new ResponseEntity(activityInformationService.findById(id),HttpStatus.OK);
+    }
+    @Log("批量删除活动信息")
+    @DeleteMapping(value = "/activityInformation/bashDel")
+    @ApiOperation(value = "批量删除的Api")
+    @PreAuthorize("hasAnyRole('ADMIN','ACTIVITY_ALL','ACTIVITY_BASH_DEL')")
+    public ResponseEntity bashDel(@RequestBody List<Long>idList){
+        activityInformationService.bashDel(idList);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

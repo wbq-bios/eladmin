@@ -63,4 +63,9 @@ public class AdServiceImpl implements AdService {
     public List<Ad> showAd() {
         return adRepository.showAd();
     }
+
+    @Override
+    public void bashDel(List<Long> idList) {
+        adRepository.bashDel(idList);
+    }
 }

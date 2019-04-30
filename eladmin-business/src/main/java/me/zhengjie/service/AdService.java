@@ -51,4 +51,6 @@ public interface AdService {
      */
     @CacheEvict(allEntries = true)
     List<Ad> showAd();
+
+    void bashDel(List<Long> idList);
 }

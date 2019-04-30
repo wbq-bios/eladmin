@@ -7,12 +7,15 @@ import me.zhengjie.service.TalentRecruitmentService;
 import me.zhengjie.service.dto.TalentRecruitmentDTO;
 import me.zhengjie.service.query.TalentRecruitmentQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
 * @author wbq
@@ -75,5 +78,11 @@ public class TalentRecruitmentController {
     @GetMapping(value = "/talentDetail/{id}")
     public ResponseEntity getTalentDetail(@PathVariable Long id){
         return new ResponseEntity(talentRecruitmentService.findById(id),HttpStatus.OK);
+    }
+    @Log("批量删除")
+    @DeleteMapping(value = "/talentDetail/bashDel")
+    public ResponseEntity bashDel(@RequestBody List<Long> idList){
+        talentRecruitmentService.bashDel(idList);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

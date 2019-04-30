@@ -15,6 +15,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
 * @author wbq
 * @date 2019-04-10
@@ -71,5 +73,11 @@ public class BannerMenuController {
     @GetMapping("/show/getBannerMenu")
     public ResponseEntity showBannerMenu(){
         return new ResponseEntity(bannerMenuService.showBannerMenu(),HttpStatus.OK);
+    }
+    @Log("批量删除")
+    @DeleteMapping(value = "bannerMenu/bashDel")
+    public ResponseEntity bashDel(@RequestBody List<Long>idList){
+        bannerMenuService.bashDel(idList);
+        return  new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -24,9 +24,10 @@ import static com.oracle.jrockit.jfr.ContentType.Timestamp;
 
 import java.util.List;
 import java.util.Optional;
+
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-26
 */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -65,6 +66,11 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
         ActivityInformation activityInformation = optionalActivityInformation.get();
         // 此处需自己修改
         resources.setId(activityInformation.getId());
+        Timestamp tempTime = new Timestamp(System.currentTimeMillis());
+        resources.setCreateTime(tempTime);
+        resources.setUpdateTime(tempTime);
+        resources.setAuthor(activityInformation.getAuthor());
+        resources.setUrl(activityInformation.getUrl());
         activityInformationRepository.save(resources);
     }
 
@@ -77,5 +83,10 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     @Override
     public List<ActivityInformation> showActivity() {
         return activityInformationRepository.showActivity();
+    }
+
+    @Override
+    public void bashDel(List<Long> idList) {
+        activityInformationRepository.bashDel(idList);
     }
 }

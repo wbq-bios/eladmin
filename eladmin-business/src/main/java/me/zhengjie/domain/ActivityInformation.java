@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
 * @author wbq
-* @date 2019-04-10
+* @date 2019-04-26
 */
 @Entity
 @Data
@@ -72,9 +72,10 @@ public class ActivityInformation implements Serializable {
      */
     @Column(name = "is_show",nullable = false)
     private Integer isShow;
+
     /**
-     * 文章列表里的图片
+     * 列表页图片
      */
-    @Column(name = "img_url",nullable=false)
+    @Column(name = "img_url",nullable = false)
     private String imgUrl;
 }

@@ -67,4 +67,10 @@ public class TalentRecruitmentServiceImpl implements TalentRecruitmentService {
     public List<TalentRecruitment> getTalentRecruitment() {
         return talentRecruitmentRepository.getTalentRecruitment();
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void bashDel(List<Long> idList) {
+        talentRecruitmentRepository.bashDel(idList);
+    }
 }

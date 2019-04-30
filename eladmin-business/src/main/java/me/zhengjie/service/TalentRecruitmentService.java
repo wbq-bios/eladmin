@@ -50,4 +50,6 @@ public interface TalentRecruitmentService {
      */
     @CacheEvict(allEntries = true)
     List<TalentRecruitment> getTalentRecruitment();
+
+    void bashDel(List<Long> idList);
 }

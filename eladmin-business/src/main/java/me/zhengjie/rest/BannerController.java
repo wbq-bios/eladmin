@@ -16,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
 * @author wbq
 * @date 2019-04-10
@@ -36,14 +38,14 @@ public class BannerController {
     @Log("查询Banner")
     @ApiOperation(value = "查询所有的banner")
     @GetMapping(value = "/banner")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','BANNER_ALL','BANNER_SELECT')")
     public ResponseEntity getBanners(BannerDTO resources, Pageable pageable){
         return new ResponseEntity(bannerQueryService.queryAll(resources,pageable),HttpStatus.OK);
     }
 
     @Log("新增Banner")
     @PostMapping(value = "/banner")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','BANNER_ALL','BANNER_ADD')")
     @ApiOperation(value = "新增banner")
     public ResponseEntity create(@Validated @RequestBody Banner resources){
         if (resources.getId() != null) {
@@ -55,7 +57,7 @@ public class BannerController {
     @Log("修改Banner")
     @ApiOperation(value = "修改banner")
     @PutMapping(value = "/banner")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','BANNER_ALL','BANNER_UPDATE')")
     public ResponseEntity update(@Validated @RequestBody Banner resources){
         if (resources.getId() == null) {
             throw new BadRequestException(ENTITY_NAME +" ID Can not be empty");
@@ -67,7 +69,7 @@ public class BannerController {
     @Log("删除Banner")
     @ApiOperation(value = "删除banner")
     @DeleteMapping(value = "/banner/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','BANNER_ALL','BANNER_DEL')")
     public ResponseEntity delete(@PathVariable Long id){
         bannerService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
@@ -78,5 +80,13 @@ public class BannerController {
     @GetMapping(value = "/show/getBanner")
     public ResponseEntity getShowBanner(){
         return new ResponseEntity(bannerService.showBanner(),HttpStatus.OK);
+    }
+
+    @Log("批量删除banner")
+    @DeleteMapping(value ="/banner/bashDel")
+    @PreAuthorize("hasAnyRole('ADMIN','BANNER_ALL','BANNER_BASH_DEL')")
+    public ResponseEntity bashDel(@RequestBody List<Long>idList){
+        bannerService.bashDel(idList);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

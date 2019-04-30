@@ -16,6 +16,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
 * @author wbq
 * @date 2019-04-10
@@ -35,7 +37,7 @@ public class AdController {
 
     @Log("查询Ad")
     @GetMapping(value = "/ad")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','AD_ALL','AD_SELECT')")
     @ApiOperation(value = "获取所有的数据库中的广告的列")
 
     public ResponseEntity getAds(AdDTO resources, Pageable pageable){
@@ -44,7 +46,7 @@ public class AdController {
 
     @Log("新增Ad")
     @PostMapping(value = "/ad")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','AD_ALL','AD_ADD')")
     @ApiOperation(value = "创建一个新的广告")
     public ResponseEntity create(@Validated @RequestBody Ad resources){
         if (resources.getId() != null) {
@@ -55,7 +57,7 @@ public class AdController {
 
     @Log("修改Ad")
     @PutMapping(value = "/ad")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','AD_ALL','AD_UPDATE')")
     @ApiOperation(value = "修改广告列",notes = "id不能为空")
     public ResponseEntity update(@Validated @RequestBody Ad resources){
         if (resources.getId() == null) {
@@ -68,7 +70,7 @@ public class AdController {
     @Log("删除Ad")
     @ApiOperation(value = "删除广告列")
     @DeleteMapping(value = "/ad/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','AD_ALL','AD_DEL')")
     public ResponseEntity delete(@PathVariable Long id){
         adService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
@@ -79,5 +81,13 @@ public class AdController {
     @ApiOperation(value = "首页展示时的获取广告",notes = "有可能以后会变成多个，所以传的是list")
     public  ResponseEntity showAd(){
         return new ResponseEntity(adService.showAd(),HttpStatus.OK);
+    }
+
+    @Log("批量删除广告")
+    @PreAuthorize("hasAnyRole('ADMIN','AD_ALL','AD_BASH_DEL')")
+    @DeleteMapping(value = "/ads/bashDelAll")
+    public ResponseEntity bashDelAll(@RequestBody List<Long>idList){
+        adService.bashDel(idList);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

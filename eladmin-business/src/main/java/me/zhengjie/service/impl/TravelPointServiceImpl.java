@@ -54,6 +54,27 @@ public class TravelPointServiceImpl implements TravelPointService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public TravelPointDTO create(TravelPointDTO resources) {
+        TravelPoint point=new TravelPoint();
+        point.setDescription(resources.getDescription());
+        point.setEnName(resources.getEnName());
+        point.setImgUrl(resources.getImgUrl());
+        //point.setSortNum(resources.getSortNum());
+        point.setName(resources.getName());
+        point.setTransportation(resources.getTransportation());
+        TravelPointDTO afterDto=travelPointMapper.toDto(travelPointRepository.save(point));
+
+        for (Picture picture:resources.getImages()) {
+            TravelPoint2Images point2Images =new TravelPoint2Images();
+            point2Images.setPictureId(picture.getId());
+            point2Images.setTravelId(afterDto.getId());
+            travelPoint2ImagesRepository.save(point2Images);
+        }
+        return afterDto;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void update(TravelPoint resources) {
         Optional<TravelPoint> optionalTravelPoint = travelPointRepository.findById(resources.getId());
         ValidationUtil.isNull( optionalTravelPoint,"TravelPoint","id",resources.getId());
@@ -95,5 +116,59 @@ public class TravelPointServiceImpl implements TravelPointService {
         }
         return res;
 
+    }
+
+    @Override
+    public List<Picture> getImages(Long id) {
+        List<TravelPoint2Images> imgs=travelPoint2ImagesRepository.getImgs(id);
+        List<Picture> pictures=new LinkedList<>();
+        for (TravelPoint2Images temp:imgs) {
+            Picture picture=pictureRepository.getById(temp.getPictureId());
+            pictures.add(picture);
+        }
+        return pictures;
+    }
+
+    @Override
+    public void update(TravelPointDTO resources) {
+        Optional<TravelPoint> optionalTravelPoint = travelPointRepository.findById(resources.getId());
+        ValidationUtil.isNull( optionalTravelPoint,"TravelPoint","id",resources.getId());
+
+        TravelPoint travelPoint = optionalTravelPoint.get();
+        TravelPoint afterPoint =new TravelPoint();
+
+        afterPoint.setTransportation(resources.getTransportation());
+        afterPoint.setName(resources.getName());
+        afterPoint.setImgUrl(resources.getImgUrl());
+        afterPoint.setEnName(resources.getEnName());
+        afterPoint.setDescription(resources.getDescription());
+        afterPoint.setId(travelPoint.getId());
+
+        resources.setId(travelPoint.getId());
+        travelPointRepository.save(afterPoint);
+        travelPoint2ImagesRepository.del(resources.getId());
+        for (Picture p:resources.getImages()) {
+            TravelPoint2Images point2Images=new TravelPoint2Images();
+            point2Images.setTravelId(resources.getId());
+            point2Images.setPictureId(p.getId());
+            travelPoint2ImagesRepository.save(point2Images);
+        }
+    }
+
+    @Override
+    public void bashDel(List<Long> idList) {
+
+        List<TravelPoint2Images>temp;
+        for (Long id:idList) {
+            temp=travelPoint2ImagesRepository.getImgs(id);
+            List<Long>picIdList=new LinkedList<>();
+            for (TravelPoint2Images tem:temp) {
+                picIdList.add(tem.getId());
+            }
+            if (!picIdList.isEmpty()){
+                travelPoint2ImagesRepository.bashDel(picIdList);
+            }
+        }
+        travelPointRepository.bashDel(idList);
     }
 }

@@ -50,4 +50,6 @@ public interface BannerMenuService {
      */
     @CacheEvict(allEntries = true)
     List<BannerMenu> showBannerMenu();
+
+    void bashDel(List<Long> idList);
 }

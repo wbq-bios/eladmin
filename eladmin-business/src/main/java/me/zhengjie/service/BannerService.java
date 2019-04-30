@@ -47,4 +47,6 @@ public interface BannerService {
 
     @CacheEvict(allEntries = true)
     List<Banner> showBanner();
+
+    void bashDel(List<Long> idList);
 }

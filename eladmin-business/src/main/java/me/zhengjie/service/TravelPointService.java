@@ -1,5 +1,6 @@
 package me.zhengjie.service;
 
+import me.zhengjie.domain.Picture;
 import me.zhengjie.domain.TravelPoint;
 import me.zhengjie.service.dto.TravelPointDTO;
 import org.springframework.cache.annotation.CacheConfig;
@@ -30,6 +31,8 @@ public interface TravelPointService {
      */
     @CacheEvict(allEntries = true)
     TravelPointDTO create(TravelPoint resources);
+    @CacheEvict(allEntries = true)
+    TravelPointDTO create(TravelPointDTO resources);
 
     /**
      * update
@@ -50,4 +53,10 @@ public interface TravelPointService {
      * @return
      */
     List<TravelPointDTO> showTravelPoint();
+
+    List<Picture> getImages(Long id);
+
+    void update(TravelPointDTO resources);
+
+    void bashDel(List<Long> idList);
 }
